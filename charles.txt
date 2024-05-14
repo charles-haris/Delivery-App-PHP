@@ -1,0 +1,50 @@
+<?php
+
+
+require 'GereImg.php';
+?>
+
+<?php
+    if (isset($_POST['Enregistrer'])){
+        $traitement= new GereImg();
+       
+
+        echo $traitement->erreurTransfer($_FILES['photo']['error']);
+        echo $traitement->size($_FILES['photo']['size']);
+        echo $traitement->controlExtension($_FILES['photo']['name']);
+
+
+        $extension_upload = strtolower(  substr(  strrchr($_FILES['photo']['name'], '.')  ,1)  );
+        $nom1= $_POST['NUMLOC'];
+        $resultat = move_uploaded_file($_FILES['photo']['tmp_name'],'../cnilocataire/'.$nom1.'.'.$extension_upload);
+
+        
+            $photo=$nom1.'.'.$extension_upload;
+
+
+
+
+
+
+
+<div class="col-5">
+                                <label for="Piece">Piece </label>
+                                <input type="hidden" name="MAX_FILE_SIZE" value="2048576" />
+                                <input
+                                        name="photo"
+                                        type="file"
+                                        class="form-control validate"
+                                        id="adresse"
+                                        value=""
+                                        required
+                                />
+                            </div>
+
+
+
+
+
+<td class="zoom">
+                                        <img src="../acquereurcni/<?php echo $resultat['CARTECNI'];?>" width="20" height="35">
+                                    </td>
+          
